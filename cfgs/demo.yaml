@@ -1,18 +1,18 @@
 seed: 0
 debug: False
 use_bf16: False
-query_frame_num: 3
+query_frame_num: 1
 return_in_pt3d: True
 load_gt: False
 visualize: False
 fmat_thres: 0.5
 init_max_reproj_error: 0.5
 
-SEQ_DIR: /PATH/TO/YOUR/IMAGE/FOLDER
-resume_ckpt:  /data/home/jianyuan/OpenSource/VGGSfM/tmp/vggsfm102.bin
+SEQ_DIR: workspace/phototourism/piazza_san_marco/set_100
+resume_ckpt:  workspace/vggsfm_v102.bin
 
 
-max_ransac_iters: 4096
+max_ransac_iters: 512
 
 MODEL:
     _target_: vggsfm.models.VGGSfM

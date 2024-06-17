@@ -108,7 +108,7 @@ def refine_track(
 
     # Extract image patches based on top left corners
     # extracted_patches: (B*S) x N x C_in x Psize x Psize
-    extracted_patches = content_to_extract[batch_indices, :, topleft[..., 1], topleft[..., 0]]
+    extracted_patches = content_to_extract[batch_indices.long(), :, topleft[..., 1].long(), topleft[..., 0].long()]
 
     # Feed patches to fine fent for features
     patch_feat = fine_fnet(extracted_patches.reshape(B * S * N, C_in, psize, psize))
@@ -205,7 +205,7 @@ def compute_score_fn(query_point_feat, patch_feat, fine_pred_track, sradius, psi
 
     # Note again, according to pytorch convention
     # x_indices cooresponds to [..., 1] and y_indices cooresponds to [..., 0]
-    reference_frame_feat = reference_frame_feat[batch_indices_score, :, x_indices, y_indices]
+    reference_frame_feat = reference_frame_feat[batch_indices_score.long(), :, x_indices.long(), y_indices.long()]
     reference_frame_feat = reference_frame_feat.reshape(B, S, N, C_out, ssize, ssize)
     # pick the frames other than the first one, so we have S-1 frames here
     reference_frame_feat = reference_frame_feat[:, 1:].reshape(B * (S - 1) * N, C_out, ssize * ssize)
